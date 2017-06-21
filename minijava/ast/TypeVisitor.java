@@ -364,7 +364,26 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 	@Override
 	public String visit(Campo no, SymbolTable<String> ctx) {
 		// TODO Implemente esse método
-		return null;
+		String tipoObj = no.obj.accept(this, ctx);
+
+		// Objeto deve ter um tipo não-primitivo
+		if(!subtype(tipoObj, "Object")) {
+			erros.add("Tentativa de acesso a um campo em algo que não é um objeto na linha " + no.lin);
+			return null;
+		}
+
+		// Devo verificar se tipoObj é null? E "null"?
+
+		// Nome de campo referenciado deve estar presente na lista de campos declarados na classe do objeto
+		Classe classeObj = classes.get(tipoObj);
+
+		if(!classeObj.ncampos.contains(no.nome)) {
+			erros.add(no.nome + " não é um campo de " + classeObj.nome ". Erro na linha " + no.lin);
+			return null;
+		}
+
+		// Tipo de retorno é o tipo do campo, como declarado na classe
+		return classeObj.tcampos.get(classeObj.ncampos.indexOf(no.nome));
 	}
 
 	@Override

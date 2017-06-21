@@ -1,0 +1,155 @@
+
+%package minijava
+%class Parser
+%interface Tokens
+
+%{
+import minijava.ast.*;
+%}
+
+%token <Token> BOOLEAN CLASS EXTENDS PUBLIC STATIC
+%token <Token> VOID MAIN STRING RETURN INT ELSE
+%token <Token> PRINTLN LENGTH TRUE FALSE THIS NULL
+%token <Token> NEW EQ NEQ AND '/' '*' '<' '!' '['
+%token <Token> ID NUM IF WHILE '.' '=' '+' '-' 
+
+%next proximo()
+%get tipo
+%semantic Object: token
+
+%type <Prog> prog
+%type <java.util.List> cmds
+%type <java.util.List> vars
+%type <java.util.List> params
+%type <java.util.List> metodos
+%type <java.util.List> classes
+%type <java.util.List> exps
+%type <Var> var
+%type <Cmd> cmd
+%type <String> tipo
+%type <Exp> exp pexp
+
+/* TODO: classes de prioridade */
+%left AND
+%left '<' EQ NEQ
+%left '+' '-'
+%left '*' '/'
+%left '!' NEG
+
+%%
+
+prog : CLASS ID '{' PUBLIC STATIC VOID MAIN '(' STRING '[' ']' ID ')' '{' cmd '}' '}'
+       classes { saida = new Prog($2.texto, $12.texto, $15, $18); $$ = saida; }
+     ; 
+
+classes : classes classe   { $1.add($2); $$ = $1; }
+        |                  { $$ = new java.util.ArrayList<Classe>(); }
+        ;
+
+classe : CLASS ID '{' vars metodos '}'  { $$ = new Classe($2.texto, $4, $5, $2.lin); }
+       | CLASS ID EXTENDS ID '{' vars metodos '}' { $$ = new Classe($2.texto, $4.texto, $6, $7, $2.lin); }
+       ;
+
+vars : vars var   { $1.add($2); $$ = $1; }
+     |            { $$ = new java.util.ArrayList<Var>(); }
+     ;
+
+var : tipo ID ';'  { $$ = new Var($1, $2.texto, $2.lin); }
+    ; 
+
+metodos : metodos metodo   { $1.add($2); $$ = $1; }
+        |                  { $$ = new java.util.ArrayList<Metodo>(); }
+        ;
+
+metodo : PUBLIC tipo ID '(' ')' '{' vars cmds RETURN exp ';' '}'
+                { $$ = new Metodo($2, $3.texto, new java.util.ArrayList<Var>(), $7, $8, $10, $3.lin); }
+       | PUBLIC tipo ID '(' params ')' '{' vars cmds RETURN exp ';' '}'
+                { $$ = new Metodo($2, $3.texto, $5, $8, $9, $11, $3.lin); }
+       ;
+
+params : params ',' tipo ID   { $1.add(new Var($3, $4.texto, $4.lin)); $$ = $1; }
+       | tipo ID              { java.util.List<Var> l = new java.util.ArrayList<Var>();
+                                l.add(new Var($1, $2.texto, $2.lin)); $$ = l; }
+       ;
+
+tipo : INT '[' ']'  { $$ = "int[]"; }
+     | BOOLEAN      { $$ = "boolean"; }
+     | INT          { $$ = "int"; }
+     | ID           { $$ = $1.texto; }
+     ;
+
+cmds : cmd cmds  { $2.add(0, $1); $$ = $2; } 
+     |           { $$ = new java.util.ArrayList<Cmd>(); }
+     ;
+
+cmd : '{' cmds '}'  { $$ = new Bloco($2); }
+    | IF '(' exp ')' cmd  { $$ = new If($3, $5, $1.lin); } 
+    | IF '(' exp ')' cmd ELSE cmd { $$ = new If($3, $5, $7, $1.lin); }
+    | WHILE '(' exp ')' cmd { $$ = new While($3, $5, $1.lin); }
+    | ID '=' exp ';' { $$ = new Atrib($1.texto, $3, $2.lin); }
+    | ID '[' exp ']' '=' exp ';' { $$ = new AtribVetor($1.texto, $3, $6, $5.lin); }
+    | PRINTLN '(' exp ')' ';' { $$ = new Println($3, $1.lin); }
+    ;
+
+exp : exp '+' exp  { $$ = new Soma($1, $3, $2.lin); }
+    | exp '-' exp  { $$ = new Sub($1, $3, $2.lin); }
+    | exp '*' exp  { $$ = new Mult($1, $3, $2.lin); }
+    | exp '/' exp  { $$ = new Div($1, $3, $2.lin); }
+    | exp '<' exp  { $$ = new Menor($1, $3, $2.lin); }
+    | exp EQ exp   { $$ = new Igual($1, $3, $2.lin); }
+    | exp NEQ exp  { $$ = new Dif($1, $3, $2.lin); }
+    | exp AND exp  { $$ = new ELog($1, $3, $2.lin); }
+    | '-' exp %prec NEG { $$ = new Neg($2, $1.lin); }
+    | '!' exp      { $$ = new Nao($2, $1.lin); }
+    | TRUE         { $$ = new True(); }
+    | FALSE        { $$ = new False(); }
+    | NUM          { $$ = new Num($1.texto); }
+    | NULL         { $$ = new Null(); }
+    | NEW INT '[' exp ']' { $$ = new Vetor($4, $1.lin); }
+    | pexp '.' LENGTH     { $$ = new Length($1, $2.lin); }
+    | pexp '[' exp ']'    { $$ = new Indexa($1, $3, $2.lin); }
+    | pexp
+    ;
+
+pexp : ID             { $$ = new Id($1.texto, $1.lin); }
+     | THIS           { $$ = new This($1.lin); }
+     | NEW ID '(' ')' { $$ = new New($2.texto, $1.lin); }
+     | '(' exp ')'    { $$ = $2; }
+     | pexp '.' ID    { $$ = new Campo($1, $3.texto, $2.lin); }
+     | pexp '.' ID '(' exps ')' { $$ = new Chamada($1, $3.texto, $5, $2.lin); }
+     | pexp '.' ID '(' ')' { $$ = new Chamada($1, $3.texto, new java.util.ArrayList<Exp>(), $2.lin); }
+     ;
+
+exps : exps ',' exp   { $1.add($3); $$ = $1; }
+     | exp            { java.util.List<Exp> l = new java.util.ArrayList<Exp>();
+                        l.add($1); $$ = l; }
+     ;
+     
+     
+%%
+
+Scanner scan;
+
+Token token;  // lookahead
+int tipo;     // tipo do lookahead
+
+public Prog saida; // workaround pro bug do tipo do parse()
+
+public Parser(java.io.Reader entrada) {
+  scan = new Scanner(entrada);
+  proximo(); // inicializa o lookahead
+}
+
+int proximo() {
+  try {
+    token = scan.nextToken();
+    tipo = token.tipo;
+    return tipo;
+  } catch(java.io.IOException e) {
+    throw new RuntimeException(e);
+  }
+}
+
+void yyerror(String msg) {
+  throw new RuntimeException("erro de sintaxe na linha: " + token.lin);
+}

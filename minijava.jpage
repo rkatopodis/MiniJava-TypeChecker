@@ -1,0 +1,22 @@
+
+Trabalho 2 - Análise Semântica de MiniJava
+==========================================
+
+O segundo trabalho é completar o analisador de escopo e tipos para
+a linguagem MiniJava (http://www.dcc.ufrj.br/~fabiom/comp/minijava.html).
+Essa pasta contém o esqueleto do analisador, dentro as classes no pacote
+"minijava.ast".
+
+As regras de escopo e tipos de MiniJava seguem as de Java, dadas
+as simplificações que foram feitas para obter a gramática de MiniJava.
+
+As partes que estão faltando correspondem à tipagem de 
+diversos nós da árvore sintática abstrata expressões,
+dentro de "TypeVisitor.java". Todas as partes estão marcadas
+com um comentário "TODO".
+
+Caso o programa esteja correto a análise produz apenas o texto
+do programa, caso ele tenha erros de tipo ele imprime os
+erros na saída padrão de erros (System.err). Use "Driver.java"
+para rodar a análise em algum arquivo fonte MiniJava.
+

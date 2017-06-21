@@ -1,0 +1,2015 @@
+// Output created by jacc on Sun Jun 09 10:58:11 BRT 2013
+
+state 0 (entry on prog)
+    $accept : _prog $end
+
+    CLASS shift 2
+    . error
+
+    prog goto 1
+
+state 1 (entry on prog)
+    $accept : prog_$end
+
+    $end accept
+    . error
+
+state 2 (entry on CLASS)
+    prog : CLASS_ID '{' PUBLIC STATIC VOID MAIN '(' STRING '[' ']' ID ')' '{' cmd '}' '}' classes    (1)
+
+    ID shift 3
+    . error
+
+state 3 (entry on ID)
+    prog : CLASS ID_'{' PUBLIC STATIC VOID MAIN '(' STRING '[' ']' ID ')' '{' cmd '}' '}' classes    (1)
+
+    '{' shift 4
+    . error
+
+state 4 (entry on '{')
+    prog : CLASS ID '{'_PUBLIC STATIC VOID MAIN '(' STRING '[' ']' ID ')' '{' cmd '}' '}' classes    (1)
+
+    PUBLIC shift 5
+    . error
+
+state 5 (entry on PUBLIC)
+    prog : CLASS ID '{' PUBLIC_STATIC VOID MAIN '(' STRING '[' ']' ID ')' '{' cmd '}' '}' classes    (1)
+
+    STATIC shift 6
+    . error
+
+state 6 (entry on STATIC)
+    prog : CLASS ID '{' PUBLIC STATIC_VOID MAIN '(' STRING '[' ']' ID ')' '{' cmd '}' '}' classes    (1)
+
+    VOID shift 7
+    . error
+
+state 7 (entry on VOID)
+    prog : CLASS ID '{' PUBLIC STATIC VOID_MAIN '(' STRING '[' ']' ID ')' '{' cmd '}' '}' classes    (1)
+
+    MAIN shift 8
+    . error
+
+state 8 (entry on MAIN)
+    prog : CLASS ID '{' PUBLIC STATIC VOID MAIN_'(' STRING '[' ']' ID ')' '{' cmd '}' '}' classes    (1)
+
+    '(' shift 9
+    . error
+
+state 9 (entry on '(')
+    prog : CLASS ID '{' PUBLIC STATIC VOID MAIN '('_STRING '[' ']' ID ')' '{' cmd '}' '}' classes    (1)
+
+    STRING shift 10
+    . error
+
+state 10 (entry on STRING)
+    prog : CLASS ID '{' PUBLIC STATIC VOID MAIN '(' STRING_'[' ']' ID ')' '{' cmd '}' '}' classes    (1)
+
+    '[' shift 11
+    . error
+
+state 11 (entry on '[')
+    prog : CLASS ID '{' PUBLIC STATIC VOID MAIN '(' STRING '['_']' ID ')' '{' cmd '}' '}' classes    (1)
+
+    ']' shift 12
+    . error
+
+state 12 (entry on ']')
+    prog : CLASS ID '{' PUBLIC STATIC VOID MAIN '(' STRING '[' ']'_ID ')' '{' cmd '}' '}' classes    (1)
+
+    ID shift 13
+    . error
+
+state 13 (entry on ID)
+    prog : CLASS ID '{' PUBLIC STATIC VOID MAIN '(' STRING '[' ']' ID_')' '{' cmd '}' '}' classes    (1)
+
+    ')' shift 14
+    . error
+
+state 14 (entry on ')')
+    prog : CLASS ID '{' PUBLIC STATIC VOID MAIN '(' STRING '[' ']' ID ')'_'{' cmd '}' '}' classes    (1)
+
+    '{' shift 15
+    . error
+
+state 15 (entry on '{')
+    prog : CLASS ID '{' PUBLIC STATIC VOID MAIN '(' STRING '[' ']' ID ')' '{'_cmd '}' '}' classes    (1)
+
+    ID shift 17
+    IF shift 18
+    PRINTLN shift 19
+    WHILE shift 20
+    '{' shift 21
+    . error
+
+    cmd goto 16
+
+state 16 (entry on cmd)
+    prog : CLASS ID '{' PUBLIC STATIC VOID MAIN '(' STRING '[' ']' ID ')' '{' cmd_'}' '}' classes    (1)
+
+    '}' shift 22
+    . error
+
+state 17 (entry on ID)
+    cmd : ID_'=' exp ';'    (25)
+    cmd : ID_'[' exp ']' '=' exp ';'    (26)
+
+    '=' shift 23
+    '[' shift 24
+    . error
+
+state 18 (entry on IF)
+    cmd : IF_'(' exp ')' cmd    (22)
+    cmd : IF_'(' exp ')' cmd ELSE cmd    (23)
+
+    '(' shift 25
+    . error
+
+state 19 (entry on PRINTLN)
+    cmd : PRINTLN_'(' exp ')' ';'    (27)
+
+    '(' shift 26
+    . error
+
+state 20 (entry on WHILE)
+    cmd : WHILE_'(' exp ')' cmd    (24)
+
+    '(' shift 27
+    . error
+
+state 21 (entry on '{')
+    cmd : '{'_cmds '}'    (21)
+    cmds : _    (20)
+
+    ID shift 17
+    IF shift 18
+    PRINTLN shift 19
+    WHILE shift 20
+    '{' shift 21
+    '}' reduce 20
+    . error
+
+    cmd goto 28
+    cmds goto 29
+
+state 22 (entry on '}')
+    prog : CLASS ID '{' PUBLIC STATIC VOID MAIN '(' STRING '[' ']' ID ')' '{' cmd '}'_'}' classes    (1)
+
+    '}' shift 30
+    . error
+
+state 23 (entry on '=')
+    cmd : ID '='_exp ';'    (25)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 31
+    pexp goto 32
+
+state 24 (entry on '[')
+    cmd : ID '['_exp ']' '=' exp ';'    (26)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 42
+    pexp goto 32
+
+state 25 (entry on '(')
+    cmd : IF '('_exp ')' cmd    (22)
+    cmd : IF '('_exp ')' cmd ELSE cmd    (23)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 43
+    pexp goto 32
+
+state 26 (entry on '(')
+    cmd : PRINTLN '('_exp ')' ';'    (27)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 44
+    pexp goto 32
+
+state 27 (entry on '(')
+    cmd : WHILE '('_exp ')' cmd    (24)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 45
+    pexp goto 32
+
+state 28 (entry on cmd)
+    cmds : cmd_cmds    (19)
+    cmds : _    (20)
+
+    ID shift 17
+    IF shift 18
+    PRINTLN shift 19
+    WHILE shift 20
+    '{' shift 21
+    '}' reduce 20
+    RETURN reduce 20
+    . error
+
+    cmd goto 28
+    cmds goto 46
+
+state 29 (entry on cmds)
+    cmd : '{' cmds_'}'    (21)
+
+    '}' shift 47
+    . error
+
+state 30 (entry on '}')
+    prog : CLASS ID '{' PUBLIC STATIC VOID MAIN '(' STRING '[' ']' ID ')' '{' cmd '}' '}'_classes    (1)
+    classes : _    (3)
+
+    CLASS reduce 3
+    $end reduce 3
+    . error
+
+    classes goto 48
+
+state 31 (entry on exp)
+    cmd : ID '=' exp_';'    (25)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+
+    AND shift 49
+    EQ shift 50
+    NEQ shift 51
+    '*' shift 52
+    '+' shift 53
+    '-' shift 54
+    '/' shift 55
+    ';' shift 56
+    '<' shift 57
+    . error
+
+state 32 (entry on pexp)
+    exp : pexp_'.' LENGTH    (42)
+    exp : pexp_'[' exp ']'    (43)
+    exp : pexp_    (44)
+    pexp : pexp_'.' ID    (49)
+    pexp : pexp_'.' ID '(' exps ')'    (50)
+    pexp : pexp_'.' ID '(' ')'    (51)
+
+    '.' shift 58
+    '[' shift 59
+    '+' reduce 44
+    '*' reduce 44
+    ')' reduce 44
+    NEQ reduce 44
+    ']' reduce 44
+    EQ reduce 44
+    '<' reduce 44
+    ';' reduce 44
+    '/' reduce 44
+    '-' reduce 44
+    ',' reduce 44
+    AND reduce 44
+    . error
+
+state 33 (entry on FALSE)
+    exp : FALSE_    (39)
+
+    '+' reduce 39
+    '*' reduce 39
+    ')' reduce 39
+    NEQ reduce 39
+    ']' reduce 39
+    EQ reduce 39
+    '<' reduce 39
+    ';' reduce 39
+    '/' reduce 39
+    '-' reduce 39
+    ',' reduce 39
+    AND reduce 39
+    . error
+
+state 34 (entry on ID)
+    pexp : ID_    (45)
+
+    '+' reduce 45
+    '*' reduce 45
+    ')' reduce 45
+    NEQ reduce 45
+    ']' reduce 45
+    EQ reduce 45
+    '[' reduce 45
+    '<' reduce 45
+    ';' reduce 45
+    '/' reduce 45
+    '.' reduce 45
+    '-' reduce 45
+    ',' reduce 45
+    AND reduce 45
+    . error
+
+state 35 (entry on NEW)
+    exp : NEW_INT '[' exp ']'    (41)
+    pexp : NEW_ID '(' ')'    (47)
+
+    ID shift 60
+    INT shift 61
+    . error
+
+state 36 (entry on NUM)
+    exp : NUM_    (40)
+
+    '+' reduce 40
+    '*' reduce 40
+    ')' reduce 40
+    NEQ reduce 40
+    ']' reduce 40
+    EQ reduce 40
+    '<' reduce 40
+    ';' reduce 40
+    '/' reduce 40
+    '-' reduce 40
+    ',' reduce 40
+    AND reduce 40
+    . error
+
+state 37 (entry on THIS)
+    pexp : THIS_    (46)
+
+    '+' reduce 46
+    '*' reduce 46
+    ')' reduce 46
+    NEQ reduce 46
+    ']' reduce 46
+    EQ reduce 46
+    '[' reduce 46
+    '<' reduce 46
+    ';' reduce 46
+    '/' reduce 46
+    '.' reduce 46
+    '-' reduce 46
+    ',' reduce 46
+    AND reduce 46
+    . error
+
+state 38 (entry on TRUE)
+    exp : TRUE_    (38)
+
+    '+' reduce 38
+    '*' reduce 38
+    ')' reduce 38
+    NEQ reduce 38
+    ']' reduce 38
+    EQ reduce 38
+    '<' reduce 38
+    ';' reduce 38
+    '/' reduce 38
+    '-' reduce 38
+    ',' reduce 38
+    AND reduce 38
+    . error
+
+state 39 (entry on '!')
+    exp : '!'_exp    (37)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 62
+    pexp goto 32
+
+state 40 (entry on '(')
+    pexp : '('_exp ')'    (48)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 63
+    pexp goto 32
+
+state 41 (entry on '-')
+    exp : '-'_exp    (36)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 64
+    pexp goto 32
+
+state 42 (entry on exp)
+    cmd : ID '[' exp_']' '=' exp ';'    (26)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+
+    AND shift 49
+    EQ shift 50
+    NEQ shift 51
+    '*' shift 52
+    '+' shift 53
+    '-' shift 54
+    '/' shift 55
+    '<' shift 57
+    ']' shift 65
+    . error
+
+state 43 (entry on exp)
+    cmd : IF '(' exp_')' cmd    (22)
+    cmd : IF '(' exp_')' cmd ELSE cmd    (23)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+
+    AND shift 49
+    EQ shift 50
+    NEQ shift 51
+    '*' shift 52
+    '+' shift 53
+    '-' shift 54
+    '/' shift 55
+    '<' shift 57
+    ')' shift 66
+    . error
+
+state 44 (entry on exp)
+    cmd : PRINTLN '(' exp_')' ';'    (27)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+
+    AND shift 49
+    EQ shift 50
+    NEQ shift 51
+    '*' shift 52
+    '+' shift 53
+    '-' shift 54
+    '/' shift 55
+    '<' shift 57
+    ')' shift 67
+    . error
+
+state 45 (entry on exp)
+    cmd : WHILE '(' exp_')' cmd    (24)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+
+    AND shift 49
+    EQ shift 50
+    NEQ shift 51
+    '*' shift 52
+    '+' shift 53
+    '-' shift 54
+    '/' shift 55
+    '<' shift 57
+    ')' shift 68
+    . error
+
+state 46 (entry on cmds)
+    cmds : cmd cmds_    (19)
+
+    '}' reduce 19
+    RETURN reduce 19
+    . error
+
+state 47 (entry on '}')
+    cmd : '{' cmds '}'_    (21)
+
+    WHILE reduce 21
+    '}' reduce 21
+    '{' reduce 21
+    RETURN reduce 21
+    IF reduce 21
+    PRINTLN reduce 21
+    ID reduce 21
+    ELSE reduce 21
+    . error
+
+state 48 (entry on classes)
+    prog : CLASS ID '{' PUBLIC STATIC VOID MAIN '(' STRING '[' ']' ID ')' '{' cmd '}' '}' classes_    (1)
+    classes : classes_classe    (2)
+
+    CLASS shift 70
+    $end reduce 1
+    . error
+
+    classe goto 69
+
+state 49 (entry on AND)
+    exp : exp AND_exp    (35)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 71
+    pexp goto 32
+
+state 50 (entry on EQ)
+    exp : exp EQ_exp    (33)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 72
+    pexp goto 32
+
+state 51 (entry on NEQ)
+    exp : exp NEQ_exp    (34)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 73
+    pexp goto 32
+
+state 52 (entry on '*')
+    exp : exp '*'_exp    (30)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 74
+    pexp goto 32
+
+state 53 (entry on '+')
+    exp : exp '+'_exp    (28)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 75
+    pexp goto 32
+
+state 54 (entry on '-')
+    exp : exp '-'_exp    (29)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 76
+    pexp goto 32
+
+state 55 (entry on '/')
+    exp : exp '/'_exp    (31)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 77
+    pexp goto 32
+
+state 56 (entry on ';')
+    cmd : ID '=' exp ';'_    (25)
+
+    WHILE reduce 25
+    '}' reduce 25
+    '{' reduce 25
+    RETURN reduce 25
+    IF reduce 25
+    PRINTLN reduce 25
+    ID reduce 25
+    ELSE reduce 25
+    . error
+
+state 57 (entry on '<')
+    exp : exp '<'_exp    (32)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 78
+    pexp goto 32
+
+state 58 (entry on '.')
+    exp : pexp '.'_LENGTH    (42)
+    pexp : pexp '.'_ID    (49)
+    pexp : pexp '.'_ID '(' exps ')'    (50)
+    pexp : pexp '.'_ID '(' ')'    (51)
+
+    ID shift 79
+    LENGTH shift 80
+    . error
+
+state 59 (entry on '[')
+    exp : pexp '['_exp ']'    (43)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 81
+    pexp goto 32
+
+state 60 (entry on ID)
+    pexp : NEW ID_'(' ')'    (47)
+
+    '(' shift 82
+    . error
+
+state 61 (entry on INT)
+    exp : NEW INT_'[' exp ']'    (41)
+
+    '[' shift 83
+    . error
+
+state 62 (entry on exp)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+    exp : '!' exp_    (37)
+
+    '+' reduce 37
+    '*' reduce 37
+    ')' reduce 37
+    NEQ reduce 37
+    ']' reduce 37
+    EQ reduce 37
+    '<' reduce 37
+    ';' reduce 37
+    '/' reduce 37
+    '-' reduce 37
+    ',' reduce 37
+    AND reduce 37
+    . error
+
+state 63 (entry on exp)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+    pexp : '(' exp_')'    (48)
+
+    AND shift 49
+    EQ shift 50
+    NEQ shift 51
+    '*' shift 52
+    '+' shift 53
+    '-' shift 54
+    '/' shift 55
+    '<' shift 57
+    ')' shift 84
+    . error
+
+state 64 (entry on exp)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+    exp : '-' exp_    (36)
+
+    '+' reduce 36
+    '*' reduce 36
+    ')' reduce 36
+    NEQ reduce 36
+    ']' reduce 36
+    EQ reduce 36
+    '<' reduce 36
+    ';' reduce 36
+    '/' reduce 36
+    '-' reduce 36
+    ',' reduce 36
+    AND reduce 36
+    . error
+
+state 65 (entry on ']')
+    cmd : ID '[' exp ']'_'=' exp ';'    (26)
+
+    '=' shift 85
+    . error
+
+state 66 (entry on ')')
+    cmd : IF '(' exp ')'_cmd    (22)
+    cmd : IF '(' exp ')'_cmd ELSE cmd    (23)
+
+    ID shift 17
+    IF shift 18
+    PRINTLN shift 19
+    WHILE shift 20
+    '{' shift 21
+    . error
+
+    cmd goto 86
+
+state 67 (entry on ')')
+    cmd : PRINTLN '(' exp ')'_';'    (27)
+
+    ';' shift 87
+    . error
+
+state 68 (entry on ')')
+    cmd : WHILE '(' exp ')'_cmd    (24)
+
+    ID shift 17
+    IF shift 18
+    PRINTLN shift 19
+    WHILE shift 20
+    '{' shift 21
+    . error
+
+    cmd goto 88
+
+state 69 (entry on classe)
+    classes : classes classe_    (2)
+
+    CLASS reduce 2
+    $end reduce 2
+    . error
+
+state 70 (entry on CLASS)
+    classe : CLASS_ID '{' vars metodos '}'    (4)
+    classe : CLASS_ID EXTENDS ID '{' vars metodos '}'    (5)
+
+    ID shift 89
+    . error
+
+state 71 (entry on exp)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+    exp : exp AND exp_    (35)
+
+    EQ shift 50
+    NEQ shift 51
+    '*' shift 52
+    '+' shift 53
+    '-' shift 54
+    '/' shift 55
+    '<' shift 57
+    ')' reduce 35
+    ']' reduce 35
+    ';' reduce 35
+    ',' reduce 35
+    AND reduce 35
+    . error
+
+state 72 (entry on exp)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp EQ exp_    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+
+    '*' shift 52
+    '+' shift 53
+    '-' shift 54
+    '/' shift 55
+    ')' reduce 33
+    NEQ reduce 33
+    ']' reduce 33
+    EQ reduce 33
+    '<' reduce 33
+    ';' reduce 33
+    ',' reduce 33
+    AND reduce 33
+    . error
+
+state 73 (entry on exp)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp NEQ exp_    (34)
+    exp : exp_AND exp    (35)
+
+    '*' shift 52
+    '+' shift 53
+    '-' shift 54
+    '/' shift 55
+    ')' reduce 34
+    NEQ reduce 34
+    ']' reduce 34
+    EQ reduce 34
+    '<' reduce 34
+    ';' reduce 34
+    ',' reduce 34
+    AND reduce 34
+    . error
+
+state 74 (entry on exp)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp '*' exp_    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+
+    '+' reduce 30
+    '*' reduce 30
+    ')' reduce 30
+    NEQ reduce 30
+    ']' reduce 30
+    EQ reduce 30
+    '<' reduce 30
+    ';' reduce 30
+    '/' reduce 30
+    '-' reduce 30
+    ',' reduce 30
+    AND reduce 30
+    . error
+
+state 75 (entry on exp)
+    exp : exp_'+' exp    (28)
+    exp : exp '+' exp_    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+
+    '*' shift 52
+    '/' shift 55
+    '+' reduce 28
+    ')' reduce 28
+    NEQ reduce 28
+    ']' reduce 28
+    EQ reduce 28
+    '<' reduce 28
+    ';' reduce 28
+    '-' reduce 28
+    ',' reduce 28
+    AND reduce 28
+    . error
+
+state 76 (entry on exp)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp '-' exp_    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+
+    '*' shift 52
+    '/' shift 55
+    '+' reduce 29
+    ')' reduce 29
+    NEQ reduce 29
+    ']' reduce 29
+    EQ reduce 29
+    '<' reduce 29
+    ';' reduce 29
+    '-' reduce 29
+    ',' reduce 29
+    AND reduce 29
+    . error
+
+state 77 (entry on exp)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp '/' exp_    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+
+    '+' reduce 31
+    '*' reduce 31
+    ')' reduce 31
+    NEQ reduce 31
+    ']' reduce 31
+    EQ reduce 31
+    '<' reduce 31
+    ';' reduce 31
+    '/' reduce 31
+    '-' reduce 31
+    ',' reduce 31
+    AND reduce 31
+    . error
+
+state 78 (entry on exp)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp '<' exp_    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+
+    '*' shift 52
+    '+' shift 53
+    '-' shift 54
+    '/' shift 55
+    ')' reduce 32
+    NEQ reduce 32
+    ']' reduce 32
+    EQ reduce 32
+    '<' reduce 32
+    ';' reduce 32
+    ',' reduce 32
+    AND reduce 32
+    . error
+
+state 79 (entry on ID)
+    pexp : pexp '.' ID_    (49)
+    pexp : pexp '.' ID_'(' exps ')'    (50)
+    pexp : pexp '.' ID_'(' ')'    (51)
+
+    '(' shift 90
+    '+' reduce 49
+    '*' reduce 49
+    ')' reduce 49
+    NEQ reduce 49
+    ']' reduce 49
+    EQ reduce 49
+    '[' reduce 49
+    '<' reduce 49
+    ';' reduce 49
+    '/' reduce 49
+    '.' reduce 49
+    '-' reduce 49
+    ',' reduce 49
+    AND reduce 49
+    . error
+
+state 80 (entry on LENGTH)
+    exp : pexp '.' LENGTH_    (42)
+
+    '+' reduce 42
+    '*' reduce 42
+    ')' reduce 42
+    NEQ reduce 42
+    ']' reduce 42
+    EQ reduce 42
+    '<' reduce 42
+    ';' reduce 42
+    '/' reduce 42
+    '-' reduce 42
+    ',' reduce 42
+    AND reduce 42
+    . error
+
+state 81 (entry on exp)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+    exp : pexp '[' exp_']'    (43)
+
+    AND shift 49
+    EQ shift 50
+    NEQ shift 51
+    '*' shift 52
+    '+' shift 53
+    '-' shift 54
+    '/' shift 55
+    '<' shift 57
+    ']' shift 91
+    . error
+
+state 82 (entry on '(')
+    pexp : NEW ID '('_')'    (47)
+
+    ')' shift 92
+    . error
+
+state 83 (entry on '[')
+    exp : NEW INT '['_exp ']'    (41)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 93
+    pexp goto 32
+
+state 84 (entry on ')')
+    pexp : '(' exp ')'_    (48)
+
+    '+' reduce 48
+    '*' reduce 48
+    ')' reduce 48
+    NEQ reduce 48
+    ']' reduce 48
+    EQ reduce 48
+    '[' reduce 48
+    '<' reduce 48
+    ';' reduce 48
+    '/' reduce 48
+    '.' reduce 48
+    '-' reduce 48
+    ',' reduce 48
+    AND reduce 48
+    . error
+
+state 85 (entry on '=')
+    cmd : ID '[' exp ']' '='_exp ';'    (26)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 94
+    pexp goto 32
+
+86: shift/reduce conflict (shift 95 and red'n 22) on ELSE
+state 86 (entry on cmd)
+    cmd : IF '(' exp ')' cmd_    (22)
+    cmd : IF '(' exp ')' cmd_ELSE cmd    (23)
+
+    ELSE shift 95
+    WHILE reduce 22
+    '}' reduce 22
+    '{' reduce 22
+    RETURN reduce 22
+    IF reduce 22
+    PRINTLN reduce 22
+    ID reduce 22
+    . error
+
+state 87 (entry on ';')
+    cmd : PRINTLN '(' exp ')' ';'_    (27)
+
+    WHILE reduce 27
+    '}' reduce 27
+    '{' reduce 27
+    RETURN reduce 27
+    IF reduce 27
+    PRINTLN reduce 27
+    ID reduce 27
+    ELSE reduce 27
+    . error
+
+state 88 (entry on cmd)
+    cmd : WHILE '(' exp ')' cmd_    (24)
+
+    WHILE reduce 24
+    '}' reduce 24
+    '{' reduce 24
+    RETURN reduce 24
+    IF reduce 24
+    PRINTLN reduce 24
+    ID reduce 24
+    ELSE reduce 24
+    . error
+
+state 89 (entry on ID)
+    classe : CLASS ID_'{' vars metodos '}'    (4)
+    classe : CLASS ID_EXTENDS ID '{' vars metodos '}'    (5)
+
+    EXTENDS shift 96
+    '{' shift 97
+    . error
+
+state 90 (entry on '(')
+    pexp : pexp '.' ID '('_exps ')'    (50)
+    pexp : pexp '.' ID '('_')'    (51)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    ')' shift 100
+    . error
+
+    exp goto 98
+    exps goto 99
+    pexp goto 32
+
+state 91 (entry on ']')
+    exp : pexp '[' exp ']'_    (43)
+
+    '+' reduce 43
+    '*' reduce 43
+    ')' reduce 43
+    NEQ reduce 43
+    ']' reduce 43
+    EQ reduce 43
+    '<' reduce 43
+    ';' reduce 43
+    '/' reduce 43
+    '-' reduce 43
+    ',' reduce 43
+    AND reduce 43
+    . error
+
+state 92 (entry on ')')
+    pexp : NEW ID '(' ')'_    (47)
+
+    '+' reduce 47
+    '*' reduce 47
+    ')' reduce 47
+    NEQ reduce 47
+    ']' reduce 47
+    EQ reduce 47
+    '[' reduce 47
+    '<' reduce 47
+    ';' reduce 47
+    '/' reduce 47
+    '.' reduce 47
+    '-' reduce 47
+    ',' reduce 47
+    AND reduce 47
+    . error
+
+state 93 (entry on exp)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+    exp : NEW INT '[' exp_']'    (41)
+
+    AND shift 49
+    EQ shift 50
+    NEQ shift 51
+    '*' shift 52
+    '+' shift 53
+    '-' shift 54
+    '/' shift 55
+    '<' shift 57
+    ']' shift 101
+    . error
+
+state 94 (entry on exp)
+    cmd : ID '[' exp ']' '=' exp_';'    (26)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+
+    AND shift 49
+    EQ shift 50
+    NEQ shift 51
+    '*' shift 52
+    '+' shift 53
+    '-' shift 54
+    '/' shift 55
+    '<' shift 57
+    ';' shift 102
+    . error
+
+state 95 (entry on ELSE)
+    cmd : IF '(' exp ')' cmd ELSE_cmd    (23)
+
+    ID shift 17
+    IF shift 18
+    PRINTLN shift 19
+    WHILE shift 20
+    '{' shift 21
+    . error
+
+    cmd goto 103
+
+state 96 (entry on EXTENDS)
+    classe : CLASS ID EXTENDS_ID '{' vars metodos '}'    (5)
+
+    ID shift 104
+    . error
+
+state 97 (entry on '{')
+    classe : CLASS ID '{'_vars metodos '}'    (4)
+    vars : _    (7)
+
+    '}' reduce 7
+    INT reduce 7
+    PUBLIC reduce 7
+    ID reduce 7
+    BOOLEAN reduce 7
+    . error
+
+    vars goto 105
+
+state 98 (entry on exp)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+    exps : exp_    (53)
+
+    AND shift 49
+    EQ shift 50
+    NEQ shift 51
+    '*' shift 52
+    '+' shift 53
+    '-' shift 54
+    '/' shift 55
+    '<' shift 57
+    ')' reduce 53
+    ',' reduce 53
+    . error
+
+state 99 (entry on exps)
+    exps : exps_',' exp    (52)
+    pexp : pexp '.' ID '(' exps_')'    (50)
+
+    ')' shift 106
+    ',' shift 107
+    . error
+
+state 100 (entry on ')')
+    pexp : pexp '.' ID '(' ')'_    (51)
+
+    '+' reduce 51
+    '*' reduce 51
+    ')' reduce 51
+    NEQ reduce 51
+    ']' reduce 51
+    EQ reduce 51
+    '[' reduce 51
+    '<' reduce 51
+    ';' reduce 51
+    '/' reduce 51
+    '.' reduce 51
+    '-' reduce 51
+    ',' reduce 51
+    AND reduce 51
+    . error
+
+state 101 (entry on ']')
+    exp : NEW INT '[' exp ']'_    (41)
+
+    '+' reduce 41
+    '*' reduce 41
+    ')' reduce 41
+    NEQ reduce 41
+    ']' reduce 41
+    EQ reduce 41
+    '<' reduce 41
+    ';' reduce 41
+    '/' reduce 41
+    '-' reduce 41
+    ',' reduce 41
+    AND reduce 41
+    . error
+
+state 102 (entry on ';')
+    cmd : ID '[' exp ']' '=' exp ';'_    (26)
+
+    WHILE reduce 26
+    '}' reduce 26
+    '{' reduce 26
+    RETURN reduce 26
+    IF reduce 26
+    PRINTLN reduce 26
+    ID reduce 26
+    ELSE reduce 26
+    . error
+
+state 103 (entry on cmd)
+    cmd : IF '(' exp ')' cmd ELSE cmd_    (23)
+
+    WHILE reduce 23
+    '}' reduce 23
+    '{' reduce 23
+    RETURN reduce 23
+    IF reduce 23
+    PRINTLN reduce 23
+    ID reduce 23
+    ELSE reduce 23
+    . error
+
+state 104 (entry on ID)
+    classe : CLASS ID EXTENDS ID_'{' vars metodos '}'    (5)
+
+    '{' shift 108
+    . error
+
+state 105 (entry on vars)
+    metodos : _    (10)
+    classe : CLASS ID '{' vars_metodos '}'    (4)
+    vars : vars_var    (6)
+
+    BOOLEAN shift 112
+    ID shift 113
+    INT shift 114
+    '}' reduce 10
+    PUBLIC reduce 10
+    . error
+
+    metodos goto 109
+    tipo goto 110
+    var goto 111
+
+state 106 (entry on ')')
+    pexp : pexp '.' ID '(' exps ')'_    (50)
+
+    '+' reduce 50
+    '*' reduce 50
+    ')' reduce 50
+    NEQ reduce 50
+    ']' reduce 50
+    EQ reduce 50
+    '[' reduce 50
+    '<' reduce 50
+    ';' reduce 50
+    '/' reduce 50
+    '.' reduce 50
+    '-' reduce 50
+    ',' reduce 50
+    AND reduce 50
+    . error
+
+state 107 (entry on ',')
+    exps : exps ','_exp    (52)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 115
+    pexp goto 32
+
+state 108 (entry on '{')
+    classe : CLASS ID EXTENDS ID '{'_vars metodos '}'    (5)
+    vars : _    (7)
+
+    '}' reduce 7
+    INT reduce 7
+    PUBLIC reduce 7
+    ID reduce 7
+    BOOLEAN reduce 7
+    . error
+
+    vars goto 116
+
+state 109 (entry on metodos)
+    metodos : metodos_metodo    (9)
+    classe : CLASS ID '{' vars metodos_'}'    (4)
+
+    PUBLIC shift 118
+    '}' shift 119
+    . error
+
+    metodo goto 117
+
+state 110 (entry on tipo)
+    var : tipo_ID ';'    (8)
+
+    ID shift 120
+    . error
+
+state 111 (entry on var)
+    vars : vars var_    (6)
+
+    WHILE reduce 6
+    '}' reduce 6
+    '{' reduce 6
+    INT reduce 6
+    RETURN reduce 6
+    PUBLIC reduce 6
+    IF reduce 6
+    PRINTLN reduce 6
+    ID reduce 6
+    BOOLEAN reduce 6
+    . error
+
+state 112 (entry on BOOLEAN)
+    tipo : BOOLEAN_    (16)
+
+    ID reduce 16
+    . error
+
+state 113 (entry on ID)
+    tipo : ID_    (18)
+
+    ID reduce 18
+    . error
+
+state 114 (entry on INT)
+    tipo : INT_'[' ']'    (15)
+    tipo : INT_    (17)
+
+    '[' shift 121
+    ID reduce 17
+    . error
+
+state 115 (entry on exp)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+    exps : exps ',' exp_    (52)
+
+    AND shift 49
+    EQ shift 50
+    NEQ shift 51
+    '*' shift 52
+    '+' shift 53
+    '-' shift 54
+    '/' shift 55
+    '<' shift 57
+    ')' reduce 52
+    ',' reduce 52
+    . error
+
+state 116 (entry on vars)
+    metodos : _    (10)
+    classe : CLASS ID EXTENDS ID '{' vars_metodos '}'    (5)
+    vars : vars_var    (6)
+
+    BOOLEAN shift 112
+    ID shift 113
+    INT shift 114
+    '}' reduce 10
+    PUBLIC reduce 10
+    . error
+
+    metodos goto 122
+    tipo goto 110
+    var goto 111
+
+state 117 (entry on metodo)
+    metodos : metodos metodo_    (9)
+
+    '}' reduce 9
+    PUBLIC reduce 9
+    . error
+
+state 118 (entry on PUBLIC)
+    metodo : PUBLIC_tipo ID '(' ')' '{' vars cmds RETURN exp ';' '}'    (11)
+    metodo : PUBLIC_tipo ID '(' params ')' '{' vars cmds RETURN exp ';' '}'    (12)
+
+    BOOLEAN shift 112
+    ID shift 113
+    INT shift 114
+    . error
+
+    tipo goto 123
+
+state 119 (entry on '}')
+    classe : CLASS ID '{' vars metodos '}'_    (4)
+
+    CLASS reduce 4
+    $end reduce 4
+    . error
+
+state 120 (entry on ID)
+    var : tipo ID_';'    (8)
+
+    ';' shift 124
+    . error
+
+state 121 (entry on '[')
+    tipo : INT '['_']'    (15)
+
+    ']' shift 125
+    . error
+
+state 122 (entry on metodos)
+    metodos : metodos_metodo    (9)
+    classe : CLASS ID EXTENDS ID '{' vars metodos_'}'    (5)
+
+    PUBLIC shift 118
+    '}' shift 126
+    . error
+
+    metodo goto 117
+
+state 123 (entry on tipo)
+    metodo : PUBLIC tipo_ID '(' ')' '{' vars cmds RETURN exp ';' '}'    (11)
+    metodo : PUBLIC tipo_ID '(' params ')' '{' vars cmds RETURN exp ';' '}'    (12)
+
+    ID shift 127
+    . error
+
+state 124 (entry on ';')
+    var : tipo ID ';'_    (8)
+
+    WHILE reduce 8
+    '}' reduce 8
+    '{' reduce 8
+    INT reduce 8
+    RETURN reduce 8
+    PUBLIC reduce 8
+    IF reduce 8
+    PRINTLN reduce 8
+    ID reduce 8
+    BOOLEAN reduce 8
+    . error
+
+state 125 (entry on ']')
+    tipo : INT '[' ']'_    (15)
+
+    ID reduce 15
+    . error
+
+state 126 (entry on '}')
+    classe : CLASS ID EXTENDS ID '{' vars metodos '}'_    (5)
+
+    CLASS reduce 5
+    $end reduce 5
+    . error
+
+state 127 (entry on ID)
+    metodo : PUBLIC tipo ID_'(' ')' '{' vars cmds RETURN exp ';' '}'    (11)
+    metodo : PUBLIC tipo ID_'(' params ')' '{' vars cmds RETURN exp ';' '}'    (12)
+
+    '(' shift 128
+    . error
+
+state 128 (entry on '(')
+    metodo : PUBLIC tipo ID '('_')' '{' vars cmds RETURN exp ';' '}'    (11)
+    metodo : PUBLIC tipo ID '('_params ')' '{' vars cmds RETURN exp ';' '}'    (12)
+
+    BOOLEAN shift 112
+    ID shift 113
+    INT shift 114
+    ')' shift 131
+    . error
+
+    params goto 129
+    tipo goto 130
+
+state 129 (entry on params)
+    metodo : PUBLIC tipo ID '(' params_')' '{' vars cmds RETURN exp ';' '}'    (12)
+    params : params_',' tipo ID    (13)
+
+    ')' shift 132
+    ',' shift 133
+    . error
+
+state 130 (entry on tipo)
+    params : tipo_ID    (14)
+
+    ID shift 134
+    . error
+
+state 131 (entry on ')')
+    metodo : PUBLIC tipo ID '(' ')'_'{' vars cmds RETURN exp ';' '}'    (11)
+
+    '{' shift 135
+    . error
+
+state 132 (entry on ')')
+    metodo : PUBLIC tipo ID '(' params ')'_'{' vars cmds RETURN exp ';' '}'    (12)
+
+    '{' shift 136
+    . error
+
+state 133 (entry on ',')
+    params : params ','_tipo ID    (13)
+
+    BOOLEAN shift 112
+    ID shift 113
+    INT shift 114
+    . error
+
+    tipo goto 137
+
+state 134 (entry on ID)
+    params : tipo ID_    (14)
+
+    ')' reduce 14
+    ',' reduce 14
+    . error
+
+state 135 (entry on '{')
+    metodo : PUBLIC tipo ID '(' ')' '{'_vars cmds RETURN exp ';' '}'    (11)
+    vars : _    (7)
+
+    WHILE reduce 7
+    '{' reduce 7
+    INT reduce 7
+    RETURN reduce 7
+    IF reduce 7
+    PRINTLN reduce 7
+    ID reduce 7
+    BOOLEAN reduce 7
+    . error
+
+    vars goto 138
+
+state 136 (entry on '{')
+    metodo : PUBLIC tipo ID '(' params ')' '{'_vars cmds RETURN exp ';' '}'    (12)
+    vars : _    (7)
+
+    WHILE reduce 7
+    '{' reduce 7
+    INT reduce 7
+    RETURN reduce 7
+    IF reduce 7
+    PRINTLN reduce 7
+    ID reduce 7
+    BOOLEAN reduce 7
+    . error
+
+    vars goto 139
+
+state 137 (entry on tipo)
+    params : params ',' tipo_ID    (13)
+
+    ID shift 140
+    . error
+
+state 138 (entry on vars)
+    cmds : _    (20)
+    metodo : PUBLIC tipo ID '(' ')' '{' vars_cmds RETURN exp ';' '}'    (11)
+    vars : vars_var    (6)
+
+    IF shift 18
+    PRINTLN shift 19
+    WHILE shift 20
+    '{' shift 21
+    BOOLEAN shift 112
+    INT shift 114
+    ID shift 142
+    RETURN reduce 20
+    . error
+
+    cmd goto 28
+    cmds goto 141
+    tipo goto 110
+    var goto 111
+
+state 139 (entry on vars)
+    cmds : _    (20)
+    metodo : PUBLIC tipo ID '(' params ')' '{' vars_cmds RETURN exp ';' '}'    (12)
+    vars : vars_var    (6)
+
+    IF shift 18
+    PRINTLN shift 19
+    WHILE shift 20
+    '{' shift 21
+    BOOLEAN shift 112
+    INT shift 114
+    ID shift 142
+    RETURN reduce 20
+    . error
+
+    cmd goto 28
+    cmds goto 143
+    tipo goto 110
+    var goto 111
+
+state 140 (entry on ID)
+    params : params ',' tipo ID_    (13)
+
+    ')' reduce 13
+    ',' reduce 13
+    . error
+
+state 141 (entry on cmds)
+    metodo : PUBLIC tipo ID '(' ')' '{' vars cmds_RETURN exp ';' '}'    (11)
+
+    RETURN shift 144
+    . error
+
+state 142 (entry on ID)
+    cmd : ID_'=' exp ';'    (25)
+    cmd : ID_'[' exp ']' '=' exp ';'    (26)
+    tipo : ID_    (18)
+
+    '=' shift 23
+    '[' shift 24
+    ID reduce 18
+    . error
+
+state 143 (entry on cmds)
+    metodo : PUBLIC tipo ID '(' params ')' '{' vars cmds_RETURN exp ';' '}'    (12)
+
+    RETURN shift 145
+    . error
+
+state 144 (entry on RETURN)
+    metodo : PUBLIC tipo ID '(' ')' '{' vars cmds RETURN_exp ';' '}'    (11)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 146
+    pexp goto 32
+
+state 145 (entry on RETURN)
+    metodo : PUBLIC tipo ID '(' params ')' '{' vars cmds RETURN_exp ';' '}'    (12)
+
+    FALSE shift 33
+    ID shift 34
+    NEW shift 35
+    NUM shift 36
+    THIS shift 37
+    TRUE shift 38
+    '!' shift 39
+    '(' shift 40
+    '-' shift 41
+    . error
+
+    exp goto 147
+    pexp goto 32
+
+state 146 (entry on exp)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+    metodo : PUBLIC tipo ID '(' ')' '{' vars cmds RETURN exp_';' '}'    (11)
+
+    AND shift 49
+    EQ shift 50
+    NEQ shift 51
+    '*' shift 52
+    '+' shift 53
+    '-' shift 54
+    '/' shift 55
+    '<' shift 57
+    ';' shift 148
+    . error
+
+state 147 (entry on exp)
+    exp : exp_'+' exp    (28)
+    exp : exp_'-' exp    (29)
+    exp : exp_'*' exp    (30)
+    exp : exp_'/' exp    (31)
+    exp : exp_'<' exp    (32)
+    exp : exp_EQ exp    (33)
+    exp : exp_NEQ exp    (34)
+    exp : exp_AND exp    (35)
+    metodo : PUBLIC tipo ID '(' params ')' '{' vars cmds RETURN exp_';' '}'    (12)
+
+    AND shift 49
+    EQ shift 50
+    NEQ shift 51
+    '*' shift 52
+    '+' shift 53
+    '-' shift 54
+    '/' shift 55
+    '<' shift 57
+    ';' shift 149
+    . error
+
+state 148 (entry on ';')
+    metodo : PUBLIC tipo ID '(' ')' '{' vars cmds RETURN exp ';'_'}'    (11)
+
+    '}' shift 150
+    . error
+
+state 149 (entry on ';')
+    metodo : PUBLIC tipo ID '(' params ')' '{' vars cmds RETURN exp ';'_'}'    (12)
+
+    '}' shift 151
+    . error
+
+state 150 (entry on '}')
+    metodo : PUBLIC tipo ID '(' ')' '{' vars cmds RETURN exp ';' '}'_    (11)
+
+    '}' reduce 11
+    PUBLIC reduce 11
+    . error
+
+state 151 (entry on '}')
+    metodo : PUBLIC tipo ID '(' params ')' '{' vars cmds RETURN exp ';' '}'_    (12)
+
+    '}' reduce 12
+    PUBLIC reduce 12
+    . error
+
+43 terminals, 14 nonterminals;
+53 grammar rules, 152 states;
+1 shift/reduce and 0 reduce/reduce conflicts reported.

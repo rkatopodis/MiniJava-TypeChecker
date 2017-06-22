@@ -366,6 +366,10 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		// TODO Implemente esse método
 		String tipoObj = no.obj.accept(this, ctx);
 
+		if(tipoObj == null) {
+			erros.add("Erro 1");
+			return null;
+		}
 		// Objeto deve ter um tipo não-primitivo
 		if(!subtype(tipoObj, "Object")) {
 			erros.add("Tentativa de acesso a um campo em algo que não é um objeto na linha " + no.lin);
@@ -375,7 +379,7 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		// Devo verificar se tipoObj é null? E "null"?
 
 		// Nome de campo referenciado deve estar presente na lista de campos declarados na classe do objeto
-		Classe classeObj = classes.get(tipoObj);
+		Classe classeObj = classes.get(tipoObj); // E se a classe não tiver sido declarada?
 
 		if(!classeObj.ncampos.contains(no.nome)) {
 			erros.add(no.nome + " não é um campo de " + classeObj.nome ". Erro na linha " + no.lin);
@@ -389,6 +393,10 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 	@Override
 	public String visit(Dif no, SymbolTable<String> ctx) {
 		// TODO Implemente esse método
+		String tipoExpEsq = no.e1.accept(this, ctx);
+		String tipoExpDir = no.e2.accept(this, ctx);
+
+
 		return null;
 	}
 

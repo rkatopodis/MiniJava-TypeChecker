@@ -366,10 +366,6 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		// TODO Implemente esse método
 		String tipoObj = no.obj.accept(this, ctx);
 
-		if(tipoObj == null) {
-			erros.add("Erro 1");
-			return null;
-		}
 		// Objeto deve ter um tipo não-primitivo
 		if(!subtype(tipoObj, "Object")) {
 			erros.add("Tentativa de acesso a um campo em algo que não é um objeto na linha " + no.lin);
@@ -379,10 +375,10 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		// Devo verificar se tipoObj é null? E "null"?
 
 		// Nome de campo referenciado deve estar presente na lista de campos declarados na classe do objeto
-		Classe classeObj = classes.get(tipoObj); // E se a classe não tiver sido declarada?
+		Classe classeObj = classes.get(tipoObj);
 
 		if(!classeObj.ncampos.contains(no.nome)) {
-			erros.add(no.nome + " não é um campo de " + classeObj.nome ". Erro na linha " + no.lin);
+			erros.add(no.nome + " não é um campo de " + classeObj.nome + ". Erro na linha " + no.lin);
 			return null;
 		}
 
@@ -392,24 +388,35 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 
 	@Override
 	public String visit(Dif no, SymbolTable<String> ctx) {
-		// TODO Implemente esse método
-		String tipoExpEsq = no.e1.accept(this, ctx);
-		String tipoExpDir = no.e2.accept(this, ctx);
+		String tesq = no.e1.accept(this, ctx);
+		String tdir = no.e2.accept(this, ctx);
 
+		if (subtype(tesq, tdir) || subtype(tdir, tesq)) {
+			return "boolean";
+		}
 
-		return null;
+		erros.add("Tentativa de NEQ na linha " + no.lin + " incompatível. Primeiro termo é " + tesq + " e segundo termo é " + tdir + ".");
+		return "boolean";
 	}
 
 	@Override
 	public String visit(ELog no, SymbolTable<String> ctx) {
 		// TODO Implemente esse método
-		return null;
+
+		String t_esq = no.e1.accept(this, ctx);
+		String t_dir = no.e2.accept(this, ctx);
+		
+		if (!t_esq.equals("boolean")) {
+			erros.add("Tentativa de utilizar AND lógico na linha " + no.lin + " incompatível. Expressão " + no.e1 + " não é booleana.");
+		}
+
+		return "boolean";
 	}
 
 	@Override
 	public String visit(False no, SymbolTable<String> ctx) {
 		// TODO Implemente esse método
-		return null;
+		return "boolean";
 	}
 
 	@Override
@@ -427,19 +434,29 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 	@Override
 	public String visit(Nao no, SymbolTable<String> ctx) {
 		// TODO Implemente esse método
-		return null;
+		String t_neg = no.e.accept(this, ctx);
+		if (!t_neg.equals("boolean")) {
+			erros.add("Tentativa de utilizar negação lógica na linha " + no.lin + " incompatível. Expressão " + no.e + " não é booleana.");
+		}
+
+		return "boolean";
 	}
 
 	@Override
 	public String visit(Neg no, SymbolTable<String> ctx) {
 		// TODO Implemente esse método
-		return null;
+		String t_exp = no.e.accept(this, ctx);
+		if (!t_exp.equals("int")) {
+			erros.add("Tentativa de utilizar negação na linha " + no.lin + " incompatível. Expressão " + no.e + " não é um inteiro.");
+		}
+
+		return "int";
 	}
 
 	@Override
 	public String visit(True no, SymbolTable<String> ctx) {
 		// TODO Implemente esse método
-		return null;
+		return "boolean";
 	}
 
 	@Override
@@ -457,6 +474,15 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 	@Override
 	public String visit(While no, SymbolTable<String> ctx) {
 		// TODO: Implemente esse método
+
+		String t_cond = no.cond.accept(this, ctx);
+
+		if(!t_cond.equals("boolean")) {
+			erros.Add("While na linha " + no.lin + ": condição '" + no.cond + "' não é uma expressão booleana.");
+		}
+
+		no.corpo.accept(this, ctx);
+
 		return null;
 	}
 }

@@ -406,9 +406,11 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		String t_esq = no.e1.accept(this, ctx);
 		String t_dir = no.e2.accept(this, ctx);
 		
-		if (!t_esq.equals("boolean")) {
+		if (!t_esq.equals("boolean"))
 			erros.add("Tentativa de utilizar AND lógico na linha " + no.lin + " incompatível. Expressão " + no.e1 + " não é booleana.");
-		}
+
+		if(!t_dir.equals("boolean"))
+			erros.add("Tentativa de utilizar AND lógico na linha " + no.lin + " incompatível. Expressão " + no.e2 + " não é booleana.");
 
 		return "boolean";
 	}

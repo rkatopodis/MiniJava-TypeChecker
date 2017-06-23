@@ -363,19 +363,14 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 
 	@Override
 	public String visit(Campo no, SymbolTable<String> ctx) {
-		// TODO Implemente esse método
 		String tipoObj = no.obj.accept(this, ctx);
-
-		// Objeto deve ter um tipo não-primitivo
-		if(!subtype(tipoObj, "Object")) {
+		Classe classeObj = classes.get(tipoObj);
+		
+		// Objeto deve ser não-primitivo e sua classe deve ter sido previamente declarado
+		if(classeObj == null) {
 			erros.add("Tentativa de acesso a um campo em algo que não é um objeto na linha " + no.lin);
 			return null;
 		}
-
-		// Devo verificar se tipoObj é null? E "null"?
-
-		// Nome de campo referenciado deve estar presente na lista de campos declarados na classe do objeto
-		Classe classeObj = classes.get(tipoObj);
 
 		if(!classeObj.ncampos.contains(no.nome)) {
 			erros.add(no.nome + " não é um campo de " + classeObj.nome + ". Erro na linha " + no.lin);
@@ -401,30 +396,25 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 
 	@Override
 	public String visit(ELog no, SymbolTable<String> ctx) {
-		// TODO Implemente esse método
-
 		String t_esq = no.e1.accept(this, ctx);
 		String t_dir = no.e2.accept(this, ctx);
 		
 		if (!t_esq.equals("boolean"))
-			erros.add("Tentativa de utilizar AND lógico na linha " + no.lin + " incompatível. Expressão " + no.e1 + " não é booleana.");
+			erros.add("Tentativa de utilizar AND lógico na linha " + no.lin + " incompatível. Expressão \"" + no.e1 + "\" não é booleana.");
 
 		if(!t_dir.equals("boolean"))
-			erros.add("Tentativa de utilizar AND lógico na linha " + no.lin + " incompatível. Expressão " + no.e2 + " não é booleana.");
+			erros.add("Tentativa de utilizar AND lógico na linha " + no.lin + " incompatível. Expressão \"" + no.e2 + "\" não é booleana.");
 
 		return "boolean";
 	}
 
 	@Override
 	public String visit(False no, SymbolTable<String> ctx) {
-		// TODO Implemente esse método
 		return "boolean";
 	}
 
 	@Override
 	public String visit(Indexa no, SymbolTable<String> ctx) {
-		// TODO Implemente esse método
-
 		String tvet = no.vet.accept(this, ctx);
 		String tind = no.ind.accept(this, ctx);
 
@@ -441,7 +431,6 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 
 	@Override
 	public String visit(Length no, SymbolTable<String> ctx) {
-		// TODO Implemente esse método
 		// exp deve ser um array (int[])
 		String texp = no.exp.accept(this, ctx);
 		if(!texp.equals("int[]"))
@@ -452,7 +441,6 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 
 	@Override
 	public String visit(Nao no, SymbolTable<String> ctx) {
-		// TODO Implemente esse método
 		String t_neg = no.e.accept(this, ctx);
 		if (!t_neg.equals("boolean")) {
 			erros.add("Tentativa de utilizar negação lógica na linha " + no.lin + " incompatível. Expressão " + no.e + " não é booleana.");
@@ -463,10 +451,9 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 
 	@Override
 	public String visit(Neg no, SymbolTable<String> ctx) {
-		// TODO Implemente esse método
 		String t_exp = no.e.accept(this, ctx);
 		if (!t_exp.equals("int")) {
-			erros.add("Tentativa de utilizar negação na linha " + no.lin + " incompatível. Expressão " + no.e + " não é um inteiro.");
+			erros.add("Tentativa de utilizar negação na linha " + no.lin + " incompatível. Expressão \"" + no.e + "\" não é um inteiro.");
 		}
 
 		return "int";
@@ -474,13 +461,11 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 
 	@Override
 	public String visit(True no, SymbolTable<String> ctx) {
-		// TODO Implemente esse método
 		return "boolean";
 	}
 
 	@Override
 	public String visit(Vetor no, SymbolTable<String> ctx) {
-		// TODO Implemente esse método
 		// tam deve ter tipo inteiro
 		String ttam = no.tam.accept(this, ctx);
 
@@ -492,7 +477,6 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 
 	@Override
 	public String visit(AtribVetor no, SymbolTable<String> ctx) {
-		// TODO: Implemente esse método
 		// nome deve ter tipo vetor
 		String tnome = ctx.get(no.nome);
 		String tind = no.ind.accept(this, ctx);
@@ -516,8 +500,6 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 
 	@Override
 	public String visit(While no, SymbolTable<String> ctx) {
-		// TODO: Implemente esse método
-
 		String t_cond = no.cond.accept(this, ctx);
 
 		if(!t_cond.equals("boolean")) {

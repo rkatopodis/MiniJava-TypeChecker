@@ -429,14 +429,14 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		String tind = no.ind.accept(this, ctx);
 
 		if(!tind.equals("int"))
-			erros.add("Índice não inteiro");
+			erros.add("Índice não inteiro na linha " + no.lin);
 
 		if(!tvet.endsWith("[]")) {
-			erros.add("Indexação de algo que não é vetor");
+			erros.add("Indexação de algo que não é vetor na linha " + no.lin);
 			return tvet;
 		}
 
-		return tvet.substring(0, tvet.size() - 2);
+		return tvet.substring(0, tvet.length() - 2);
 	}
 
 	@Override
@@ -446,7 +446,7 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		String texp = no.exp.accept(this, ctx);
 		if(!texp.equals("int[]"))
 			erros.add("Chamada de length em algo que não é um vetor (" + no.exp.toString() + ") na linha " + no.lin);
-		
+
 		return "int";
 	}
 
@@ -481,12 +481,36 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 	@Override
 	public String visit(Vetor no, SymbolTable<String> ctx) {
 		// TODO Implemente esse método
-		return null;
+		// tam deve ter tipo inteiro
+		String ttam = no.tam.accept(this, ctx);
+
+		if(!ttam.equals("int"))
+			erros.add("Falha ao instanciar vetor na linha " + no.lin ". " + no.tam.toString() + " não é um inteiro");
+
+		return "int[]";
 	}
 
 	@Override
 	public String visit(AtribVetor no, SymbolTable<String> ctx) {
 		// TODO: Implemente esse método
+		// nome deve ter tipo vetor
+		String tnome = no.nome.accept(this, ctx);
+		String tind = no.ind.accept(this, ctx);
+		String trval = no.rval.accept(this, ctx);
+		String tel;
+
+		if(!tind.equals("int"))
+			erros.add("Índice não inteiro na linha " + no.lin);
+
+		if(!tnome.endsWith("[]")) {
+			erros.add("Falha de indexação na linha " + no.lin + ". " + no.nome.toString() + " não é um vetor");
+			return null
+		}
+
+		tel = tnome.substring(0, tnome.length() - 2);
+		if(!trval.equals(tel))
+			erros.add("Falha de atribuição na linha " + no.lin + ". " + no.rval.toString() + " tem tipo " + trval + ". Tipo esperado é " + tel);
+
 		return null;
 	}
 

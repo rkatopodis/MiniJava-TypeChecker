@@ -442,7 +442,12 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 	@Override
 	public String visit(Length no, SymbolTable<String> ctx) {
 		// TODO Implemente esse método
-		return null;
+		// exp deve ser um array (int[])
+		String texp = no.exp.accept(this, ctx);
+		if(!texp.equals("int[]"))
+			erros.add("Chamada de length em algo que não é um vetor (" + no.exp.toString() + ") na linha " + no.lin);
+		
+		return "int";
 	}
 
 	@Override

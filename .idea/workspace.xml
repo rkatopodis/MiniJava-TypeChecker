@@ -40,8 +40,8 @@
       <file leaf-file-name="TypeVisitor.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/minijava/ast/TypeVisitor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="118">
-              <caret line="409" column="136" lean-forward="false" selection-start-line="409" selection-start-column="136" selection-end-line="409" selection-end-column="136" />
+            <state relative-caret-position="305">
+              <caret line="438" column="48" lean-forward="false" selection-start-line="438" selection-start-column="48" selection-end-line="438" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -289,12 +289,12 @@
       <option name="presentableId" value="Default" />
       <updated>1498070617727</updated>
       <workItem from="1498071651811" duration="5348000" />
-      <workItem from="1498171587289" duration="1669000" />
+      <workItem from="1498171587289" duration="2538000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7017000" />
+    <option name="totallyTimeSpent" value="7886000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -538,8 +538,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/minijava/ast/TypeVisitor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="118">
-          <caret line="409" column="136" lean-forward="false" selection-start-line="409" selection-start-column="136" selection-end-line="409" selection-end-column="136" />
+        <state relative-caret-position="305">
+          <caret line="438" column="48" lean-forward="false" selection-start-line="438" selection-start-column="48" selection-end-line="438" selection-end-column="48" />
           <folding />
         </state>
       </provider>

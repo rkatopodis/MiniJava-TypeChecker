@@ -424,7 +424,19 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 	@Override
 	public String visit(Indexa no, SymbolTable<String> ctx) {
 		// TODO Implemente esse método
-		return null;
+
+		String tvet = no.vet.accept(this, ctx);
+		String tind = no.ind.accept(this, ctx);
+
+		if(!tind.equals("int"))
+			erros.add("Índice não inteiro");
+
+		if(!tvet.endsWith("[]")) {
+			erros.add("Indexação de algo que não é vetor");
+			return tvet;
+		}
+
+		return tvet.substring(0, tvet.size() - 2);
 	}
 
 	@Override

@@ -11,7 +11,7 @@ class BubbleSort{
 class BBS{
     
     int[] number ;
-    int size ;
+    int size;
 
     // Invoke the Initialization, Sort and Printing
     // Methods
@@ -40,7 +40,7 @@ class BBS{
 	i = size - 1 ;
 	aux02 = 0 - 1 ;
 	while (aux02 < i) {
-	    j = 1 ;
+	    j = 3 ;
 	    //aux03 = i+1 ;
 	    while (j < (i+1)){
 		aux07 = j - 1 ;

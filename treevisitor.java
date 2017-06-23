@@ -18,6 +18,7 @@ class TV {
 
 	root = new Tree();
 	ntb = root.Init(16);
+	
 	ntb = root.Print();
 	System.out.println(100000000);
 	ntb = root.Insert(8) ;

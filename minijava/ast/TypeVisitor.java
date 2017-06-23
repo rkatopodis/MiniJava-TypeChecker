@@ -34,13 +34,13 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		String texp = no.exp.accept(this, ctx);
 		String tvar = ctx.get(no.nome);
 		if(tvar == null) {
-			erros.add("vari√°vel " + no.nome + 
-					  " na atribui√ß√£o da linha " + no.lin + 
-					  " n√£o declarada");
+			erros.add("vari·vel " + no.nome + 
+					  " na atribuiÁ„o da linha " + no.lin + 
+					  " n„o declarada");
 			tvar = "int";
 		}
 		if(!subtype(texp, tvar))
-			erros.add("tipos na atribui√ß√£o da linha " + no.lin + " incompat√≠veis, lado esquerdo √© " + tvar + " e lado direito √© " + texp);
+			erros.add("tipos na atribuiÁ„o da linha " + no.lin + " incompatÌveis, lado esquerdo È " + tvar + " e lado direito È " + texp);
 		return null;
 	}
 
@@ -60,9 +60,9 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 			return "int";
 		}
 		if(!tesq.equals("int"))
-			erros.add("lado esquerdo da divis√£o na linha " + no.lin + " √© " + tesq + " e n√£o n√∫mero");
+			erros.add("lado esquerdo da divis„o na linha " + no.lin + " È " + tesq + " e n„o n˙mero");
 		if(!tdir.equals("int"))
-			erros.add("lado direito da divis√£o na linha " + no.lin + " √© " + tdir + " e n√£o n√∫mero");
+			erros.add("lado direito da divis„o na linha " + no.lin + " È " + tdir + " e n„o n˙mero");
 		return "int";
 	}
 
@@ -70,7 +70,7 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 	public String visit(If no, SymbolTable<String> ctx) {
 		String tcond = no.cond.accept(this, ctx);
 		if(!tcond.equals("boolean"))
-			erros.add("condi√ß√£o do if na linha " + no.lin + " √© " + tcond + " e n√£o booleana");
+			erros.add("condiÁ„o do if na linha " + no.lin + " È " + tcond + " e n„o booleana");
 		no.cthen.accept(this, ctx);
 		no.celse.accept(this, ctx);
 		return null;
@@ -83,7 +83,7 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		if(subtype(tesq, tdir) || subtype(tdir, tesq)) {
 			return "boolean";
 		}
-		erros.add("tipos na igualdade da linha " + no.lin + " incompat√≠veis, lado esquerdo √© " + tesq + " e lado direito √© " + tdir);
+		erros.add("tipos na igualdade da linha " + no.lin + " incompatÌveis, lado esquerdo È " + tesq + " e lado direito È " + tdir);
 		return "boolean";
 	}
 
@@ -95,9 +95,9 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 			return "boolean";
 		}
 		if(!tesq.equals("int"))
-			erros.add("lado esquerdo da compara√ß√£o na linha " + no.lin + " √© " + tesq + " e n√£o n√∫mero");
+			erros.add("lado esquerdo da comparaÁ„o na linha " + no.lin + " È " + tesq + " e n„o n˙mero");
 		if(!tdir.equals("int"))
-			erros.add("lado direito da compara√ß√£o na linha " + no.lin + " √© " + tdir + " e n√£o n√∫mero");
+			erros.add("lado direito da comparaÁ„o na linha " + no.lin + " È " + tdir + " e n„o n˙mero");
 		return "boolean";
 	}
 
@@ -109,9 +109,9 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 			return "int";
 		}
 		if(!tesq.equals("int"))
-			erros.add("lado esquerdo da multiplica√ß√£o na linha " + no.lin + " √© " + tesq + " e n√£o n√∫mero");
+			erros.add("lado esquerdo da multiplicaÁ„o na linha " + no.lin + " È " + tesq + " e n„o n˙mero");
 		if(!tdir.equals("int"))
-			erros.add("lado direito da multiplica√ß√£o na linha " + no.lin + " √© " + tdir + " e n√£o n√∫mero");
+			erros.add("lado direito da multiplicaÁ„o na linha " + no.lin + " È " + tdir + " e n„o n˙mero");
 		return "int";
 	}
 
@@ -123,9 +123,9 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 			return "int";
 		}
 		if(!tesq.equals("int"))
-			erros.add("lado esquerdo da soma na linha " + no.lin + " √© " + tesq + " e n√£o n√∫mero");
+			erros.add("lado esquerdo da soma na linha " + no.lin + " È " + tesq + " e n„o n˙mero");
 		if(!tdir.equals("int"))
-			erros.add("lado direito da soma na linha " + no.lin + " √© " + tdir + " e n√£o n√∫mero");
+			erros.add("lado direito da soma na linha " + no.lin + " È " + tdir + " e n„o n˙mero");
 		return "int";
 	}
 
@@ -137,9 +137,9 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 			return "int";
 		}
 		if(!tesq.equals("int"))
-			erros.add("lado esquerdo da subtra√ß√£o na linha " + no.lin + " √© " + tesq + " e n√£o n√∫mero");
+			erros.add("lado esquerdo da subtraÁ„o na linha " + no.lin + " È " + tesq + " e n„o n˙mero");
 		if(!tdir.equals("int"))
-			erros.add("lado direito da subtra√ß√£o na linha " + no.lin + " √© " + tdir + " e n√£o n√∫mero");
+			erros.add("lado direito da subtraÁ„o na linha " + no.lin + " È " + tdir + " e n„o n˙mero");
 		return "int";
 	}
 
@@ -182,9 +182,9 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 	public String visit(Id no, SymbolTable<String> ctx) {
 		String tid = ctx.get(no.nome);
 		if(tid == null) {
-			erros.add("vari√°vel " + no.nome + 
-					  " usada na express√£o da linha " + no.lin + 
-					  " n√£o declarada");
+			erros.add("vari·vel " + no.nome + 
+					  " usada na express„o da linha " + no.lin + 
+					  " n„o declarada");
 			tid = "int";
 		}
 		return tid;
@@ -197,14 +197,14 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 			if(!cmetodo.containsKey(param.nome)) {
 				cmetodo.put(param.nome, param.tipo);
 			} else {
-				erros.add("par√¢metro " + param.nome + " redeclarado na linha " + no.lin);
+				erros.add("par‚metro " + param.nome + " redeclarado na linha " + no.lin);
 			}
 		}
 		for(Var param: no.vars) {
 			if(!cmetodo.containsKey(param.nome)) {
 				cmetodo.put(param.nome, param.tipo);
 			} else {
-				erros.add("vari√°vel " + param.nome + " redeclarada na linha " + no.lin);
+				erros.add("vari·vel " + param.nome + " redeclarada na linha " + no.lin);
 			}
 		}
 		for(Cmd cmd: no.cmds) {
@@ -212,9 +212,9 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		}
 		String tret = no.ret.accept(this, cmetodo);
 		if(!subtype(tret, no.tret))
-			erros.add("tipo da express√£o de retorno " + tret +
-					" n√£o bate com o tipo de retorno " + no.tret + 
-					" declarado no m√©todo da linha " + no.lin);
+			erros.add("tipo da express„o de retorno " + tret +
+					" n„o bate com o tipo de retorno " + no.tret + 
+					" declarado no mÈtodo da linha " + no.lin);
 		return null;
 	}
 
@@ -223,13 +223,13 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		String trexp = no.obj.accept(this, ctx);
 		Classe cls = classes.get(trexp);
 		if(cls == null) {
-			erros.add("objeto da chamada de m√©todo " + no.nome + " tem tipo " + trexp + " que n√£o existe ou n√£o √© classe na linha " + no.lin);
+			erros.add("objeto da chamada de mÈtodo " + no.nome + " tem tipo " + trexp + " que n„o existe ou n„o È classe na linha " + no.lin);
 			for(Exp arg: no.args) arg.accept(this, ctx);
 			return "int";
 		}
 		int imetodo = cls.nmetodos.indexOf(no.nome);
 		if(imetodo == -1) {
-			erros.add("m√©todo " + no.nome + " n√£o existe na classe " + trexp + " na linha " + no.lin);
+			erros.add("mÈtodo " + no.nome + " n„o existe na classe " + trexp + " na linha " + no.lin);
 			for(Exp arg: no.args) arg.accept(this, ctx);
 			return "int";
 		}
@@ -243,12 +243,12 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 			targs[i] = no.args.get(i).accept(this, ctx);
 		}
 		if(tparams.length != targs.length) {
-			erros.add("aridade da chamada na linha " + no.lin + " n√£o bate com a do m√©todo " + no.nome + " da classe " + trexp);
+			erros.add("aridade da chamada na linha " + no.lin + " n„o bate com a do mÈtodo " + no.nome + " da classe " + trexp);
 		} else {
 			for(int i = 0; i < tparams.length; i++) {
 				if(!subtype(targs[i], tparams[i])) {
 					erros.add("tipo " + targs[i] + " do argumento " +
-							i + " da chamada de m√©todo " + no.nome + " da classe " + trexp + " na linha " + no.lin + " n√£o √© compat√≠vel com o tipo " + tparams[i] + " do par√¢metro");
+							i + " da chamada de mÈtodo " + no.nome + " da classe " + trexp + " na linha " + no.lin + " n„o È compatÌvel com o tipo " + tparams[i] + " do par‚metro");
 				}
 			}
 		}
@@ -258,7 +258,7 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 	@Override
 	public String visit(New no, SymbolTable<String> ctx) {
 		if(!classes.equals("Object") && classes.get(no.classe) == null) {
-			erros.add("classe " + no.classe + " no construtor na linha " + no.lin + " n√£o existe");
+			erros.add("classe " + no.classe + " no construtor na linha " + no.lin + " n„o existe");
 			return "Object";
 		}
 		return no.classe;
@@ -280,7 +280,7 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 				} else {
 					Classe csup = classes.get(no.pai);
 					if(csup == null) {
-						erros.add("superclasse " + no.pai + " da classe " + no.nome + " n√£o existe na linha " + no.lin);
+						erros.add("superclasse " + no.pai + " da classe " + no.nome + " n„o existe na linha " + no.lin);
 					} else {
 						csup.accept(this, ctx);
 						no.ncampos.addAll(csup.ncampos);
@@ -302,7 +302,7 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 			List<Metodo> pmetodos = new ArrayList<>();
 			for(Metodo m: no.metodos) {
 				if(nmetodos.indexOf(m.nome) != -1) {
-					erros.add("m√©todo " + m.nome + " redeclarado na linha " + m.lin);
+					erros.add("mÈtodo " + m.nome + " redeclarado na linha " + m.lin);
 				} else {
 					nmetodos.add(m.nome);
 					pmetodos.add(m);
@@ -312,7 +312,7 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 				if(no.nmetodos.indexOf(nmetodos.get(i)) == -1) {
 					no.nmetodos.add(nmetodos.get(i));
 					no.pmetodos.add(pmetodos.get(i));
-				} else { // m√©todo existe em alguma superclasse, mant√©m √≠ndice
+				} else { // mÈtodo existe em alguma superclasse, mantÈm Ìndice
 					no.pmetodos.set(no.nmetodos.indexOf(nmetodos.get(i)), pmetodos.get(i));
 				}
 			}
@@ -322,18 +322,18 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 			for(Metodo metodo: no.metodos) {
 				if(no.pmetodos.indexOf(metodo) != -1 &&
 						csup != null && csup.nmetodos.indexOf(metodo.nome) != -1) {
-					// m√©todo redefinido
+					// mÈtodo redefinido
 					Metodo old = csup.pmetodos.get(csup.nmetodos.indexOf(metodo.nome));
 					if(old.params.size() != metodo.params.size()) {
-						erros.add("tentando redefinir m√©todo " + metodo.nome + " na classe " + no.nome + " na linha " + metodo.lin + " com aridade diferente da original");
+						erros.add("tentando redefinir mÈtodo " + metodo.nome + " na classe " + no.nome + " na linha " + metodo.lin + " com aridade diferente da original");
 					} else {
 						if(!subtype(metodo.tret, old.tret))
-							erros.add("redefini√ß√£o do m√©todo " + metodo.nome + " na classe " + no.nome + " tem tipo de retorno " + metodo.tret + " incompat√≠vel com o tipo original " + old.tret);
+							erros.add("redefiniÁ„o do mÈtodo " + metodo.nome + " na classe " + no.nome + " tem tipo de retorno " + metodo.tret + " incompatÌvel com o tipo original " + old.tret);
 						for(int i = 0; i < metodo.params.size(); i++) {
 							String told = old.params.get(i).tipo;
 							String tnew = metodo.params.get(i).tipo;
-							if(!told.equals(tnew)) // Regra de redefini√ß√£o de Java
-								erros.add("redefini√ß√£o do m√©todo " + metodo.nome + " na classe " + no.nome + " tem o par√¢metro " + i + " de tipo " + tnew + " incompat√≠vel com o tipo original " + told);
+							if(!told.equals(tnew)) // Regra de redefiniÁ„o de Java
+								erros.add("redefiniÁ„o do mÈtodo " + metodo.nome + " na classe " + no.nome + " tem o par‚metro " + i + " de tipo " + tnew + " incompatÌvel com o tipo original " + told);
 						}
 					}
 				}
@@ -355,7 +355,7 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 	public String visit(This no, SymbolTable<String> ctx) {
 		String tthis = ctx.get("this");
 		if(tthis == null) {
-			erros.add("this usado fora de um m√©todo na linha " + no.lin);
+			erros.add("this usado fora de um mÈtodo na linha " + no.lin);
 			return "Object";
 		}
 		return tthis;
@@ -366,18 +366,18 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		String tipoObj = no.obj.accept(this, ctx);
 		Classe classeObj = classes.get(tipoObj);
 		
-		// Objeto deve ser n√£o-primitivo e sua classe deve ter sido previamente declarado
+		// Objeto deve ser n„o-primitivo e sua classe deve ter sido previamente declarado
 		if(classeObj == null) {
-			erros.add("Tentativa de acesso a um campo em algo que n√£o √© um objeto na linha " + no.lin);
+			erros.add("Tentativa de acesso a um campo em algo que n„o È um objeto na linha " + no.lin);
 			return null;
 		}
 
 		if(!classeObj.ncampos.contains(no.nome)) {
-			erros.add(no.nome + " n√£o √© um campo de " + classeObj.nome + ". Erro na linha " + no.lin);
+			erros.add(no.nome + " n„o È um campo de " + classeObj.nome + ". Erro na linha " + no.lin);
 			return null;
 		}
 
-		// Tipo de retorno √© o tipo do campo, como declarado na classe
+		// Tipo de retorno È o tipo do campo, como declarado na classe
 		return classeObj.tcampos.get(classeObj.ncampos.indexOf(no.nome));
 	}
 
@@ -390,7 +390,7 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 			return "boolean";
 		}
 
-		erros.add("Tentativa de NEQ na linha " + no.lin + " incompat√≠vel. Primeiro termo √© " + tesq + " e segundo termo √© " + tdir + ".");
+		erros.add("Tentativa de NEQ na linha " + no.lin + " incompatÌvel. Primeiro termo È " + tesq + " e segundo termo È " + tdir + ".");
 		return "boolean";
 	}
 
@@ -400,10 +400,10 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		String t_dir = no.e2.accept(this, ctx);
 		
 		if (!t_esq.equals("boolean"))
-			erros.add("Tentativa de utilizar AND l√≥gico na linha " + no.lin + " incompat√≠vel. Express√£o \"" + no.e1 + "\" n√£o √© booleana.");
+			erros.add("Tentativa de utilizar AND lÛgico na linha " + no.lin + " incompatÌvel. Express„o \"" + no.e1 + "\" n„o È booleana.");
 
 		if(!t_dir.equals("boolean"))
-			erros.add("Tentativa de utilizar AND l√≥gico na linha " + no.lin + " incompat√≠vel. Express√£o \"" + no.e2 + "\" n√£o √© booleana.");
+			erros.add("Tentativa de utilizar AND lÛgico na linha " + no.lin + " incompatÌvel. Express„o \"" + no.e2 + "\" n„o È booleana.");
 
 		return "boolean";
 	}
@@ -419,10 +419,10 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		String tind = no.ind.accept(this, ctx);
 
 		if(!tind.equals("int"))
-			erros.add("Indice n√£o inteiro na linha " + no.lin);
+			erros.add("Indice n„o inteiro na linha " + no.lin);
 
 		if(!tvet.endsWith("[]")) {
-			erros.add("Indexa√ß√£o de algo que n√£o √© vetor na linha " + no.lin);
+			erros.add("IndexaÁ„o de algo que n„o È vetor na linha " + no.lin);
 			return tvet;
 		}
 
@@ -434,7 +434,7 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		// exp deve ser um array (int[])
 		String texp = no.exp.accept(this, ctx);
 		if(!texp.equals("int[]"))
-			erros.add("Chamada de length em algo que n√£o √© um vetor (" + no.exp.toString() + ") na linha " + no.lin);
+			erros.add("Chamada de length em algo que n„o È um vetor (" + no.exp.toString() + ") na linha " + no.lin);
 
 		return "int";
 	}
@@ -443,7 +443,7 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 	public String visit(Nao no, SymbolTable<String> ctx) {
 		String t_neg = no.e.accept(this, ctx);
 		if (!t_neg.equals("boolean")) {
-			erros.add("Tentativa de utilizar nega√ß√£o l√≥gica na linha " + no.lin + " incompat√≠vel. Express√£o " + no.e + " n√£o √© booleana.");
+			erros.add("Tentativa de utilizar negaÁ„o lÛgica na linha " + no.lin + " incompatÌvel. Express„o " + no.e + " n„o È booleana.");
 		}
 
 		return "boolean";
@@ -453,7 +453,7 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 	public String visit(Neg no, SymbolTable<String> ctx) {
 		String t_exp = no.e.accept(this, ctx);
 		if (!t_exp.equals("int")) {
-			erros.add("Tentativa de utilizar nega√ß√£o na linha " + no.lin + " incompat√≠vel. Express√£o \"" + no.e + "\" n√£o √© um inteiro.");
+			erros.add("Tentativa de utilizar negaÁ„o na linha " + no.lin + " incompatÌvel. Express„o \"" + no.e + "\" n„o È um inteiro.");
 		}
 
 		return "int";
@@ -470,7 +470,7 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		String ttam = no.tam.accept(this, ctx);
 
 		if(!ttam.equals("int"))
-			erros.add("Falha ao instanciar vetor na linha " + no.lin + ". " + no.tam.toString() + " n√£o √© um inteiro");
+			erros.add("Falha ao instanciar vetor na linha " + no.lin + ". " + no.tam.toString() + " n„o È um inteiro");
 
 		return "int[]";
 	}
@@ -484,16 +484,16 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		String tel;
 
 		if(!tind.equals("int"))
-			erros.add("Indice n√£o inteiro na linha " + no.lin);
+			erros.add("Indice n„o inteiro na linha " + no.lin);
 
 		if(!tnome.endsWith("[]")) {
-			erros.add("Falha de indexa√ß√£o na linha " + no.lin + ". " + no.nome.toString() + " n√£o √© um vetor");
+			erros.add("Falha de indexaÁ„o na linha " + no.lin + ". " + no.nome.toString() + " n„o È um vetor");
 			return null;
 		}
 
 		tel = tnome.substring(0, tnome.length() - 2);
 		if(!trval.equals(tel))
-			erros.add("Falha de atribui√ß√£o na linha " + no.lin + ". " + no.rval.toString() + " tem tipo " + trval + ". Tipo esperado √© " + tel);
+			erros.add("Falha de atribuiÁ„o na linha " + no.lin + ". " + no.rval.toString() + " tem tipo " + trval + ". Tipo esperado È " + tel);
 
 		return null;
 	}

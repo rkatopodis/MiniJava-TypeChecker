@@ -429,7 +429,7 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		String tind = no.ind.accept(this, ctx);
 
 		if(!tind.equals("int"))
-			erros.add("Índice não inteiro na linha " + no.lin);
+			erros.add("Indice não inteiro na linha " + no.lin);
 
 		if(!tvet.endsWith("[]")) {
 			erros.add("Indexação de algo que não é vetor na linha " + no.lin);
@@ -485,7 +485,7 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		String ttam = no.tam.accept(this, ctx);
 
 		if(!ttam.equals("int"))
-			erros.add("Falha ao instanciar vetor na linha " + no.lin ". " + no.tam.toString() + " não é um inteiro");
+			erros.add("Falha ao instanciar vetor na linha " + no.lin + ". " + no.tam.toString() + " não é um inteiro");
 
 		return "int[]";
 	}
@@ -494,17 +494,17 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 	public String visit(AtribVetor no, SymbolTable<String> ctx) {
 		// TODO: Implemente esse método
 		// nome deve ter tipo vetor
-		String tnome = no.nome.accept(this, ctx);
+		String tnome = ctx.get(no.nome);
 		String tind = no.ind.accept(this, ctx);
 		String trval = no.rval.accept(this, ctx);
 		String tel;
 
 		if(!tind.equals("int"))
-			erros.add("Índice não inteiro na linha " + no.lin);
+			erros.add("Indice não inteiro na linha " + no.lin);
 
 		if(!tnome.endsWith("[]")) {
 			erros.add("Falha de indexação na linha " + no.lin + ". " + no.nome.toString() + " não é um vetor");
-			return null
+			return null;
 		}
 
 		tel = tnome.substring(0, tnome.length() - 2);
@@ -521,7 +521,7 @@ public class TypeVisitor implements Visitor<SymbolTable<String>, String> {
 		String t_cond = no.cond.accept(this, ctx);
 
 		if(!t_cond.equals("boolean")) {
-			erros.Add("While na linha " + no.lin + ": condição '" + no.cond + "' não é uma expressão booleana.");
+			erros.add("While na linha " + no.lin + ": condicao " + no.cond + " nao e uma expressao booleana.");
 		}
 
 		no.corpo.accept(this, ctx);
